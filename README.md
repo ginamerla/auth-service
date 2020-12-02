@@ -1,2 +1,1 @@
-# auth-service
-Authentication service Sample
+# token-auth
