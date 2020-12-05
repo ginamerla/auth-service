@@ -35,21 +35,12 @@ public class TokenServiceMemoryBasedImplementationTest {
     public void init(){
         tokenMap = new ConcurrentHashMap<>();
 
-//        Token tokenValid = new Token();
-//        tokenValid.set(ID_TOKEN_VALID);
-//        tokenValid.setCreationDate(TOKEN_CREATION_DATE_VALID);
-//        tokenValid.setDurationMinutes(TOKEN_DURATION_MINUTES);
-//        tokenMap.put(ID_TOKEN_VALID,tokenValid);
         Token tokenValid = Token.builder()
                 .tokenId(ID_TOKEN_VALID)
                 .creationDate(TOKEN_CREATION_DATE_VALID)
                 .durationMinutes(TOKEN_DURATION_MINUTES).build();
         tokenMap.put(ID_TOKEN_VALID, tokenValid);
 
-//        Token tokenValidDateExpired = new Token();
-//        tokenValidDateExpired.setTokenId(ID_TOKEN_VALID_DATE_EXPIRED);
-//        tokenValidDateExpired.setCreationDate(TOKEN_CREATION_DATE_INVALID);
-//        tokenValidDateExpired.setDurationMinutes(TOKEN_DURATION_MINUTES);
         Token tokenValidDateExpired = Token.builder()
                 .tokenId(ID_TOKEN_VALID_DATE_EXPIRED)
                 .creationDate(TOKEN_CREATION_DATE_INVALID)
