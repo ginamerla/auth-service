@@ -1,12 +1,10 @@
 package com.tortu.demo.configuration;
 
 import org.apache.cxf.transport.servlet.CXFServlet;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 public class ServletConfig {
@@ -28,14 +26,14 @@ public class ServletConfig {
      * enables spring security filter.
      * @return FilterRegistrationBean
      */
-    @Bean
-    public FilterRegistrationBean<RequestResponseLoggingFilter> loginFilter() {
-        FilterRegistrationBean<RequestResponseLoggingFilter> registration = new FilterRegistrationBean<>();
-        registration.setFilter(new RequestResponseLoggingFilter());
-        registration.addUrlPatterns("/*");
-        registration.setName("loggingFilter");
-        registration.setOrder(1);
-        return registration;
-    }
+//    @Bean
+//    public FilterRegistrationBean<RequestResponseLoggingFilter> loginFilter() {
+//        FilterRegistrationBean<RequestResponseLoggingFilter> registration = new FilterRegistrationBean<>();
+//        registration.setFilter(new RequestResponseLoggingFilter());
+//        registration.addUrlPatterns("/*");
+//        registration.setName("loggingFilter");
+//        registration.setOrder(1);
+//        return registration;
+//    }
 
 }

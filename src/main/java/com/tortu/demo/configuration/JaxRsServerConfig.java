@@ -5,6 +5,7 @@ import com.tortu.demo.exception.ExceptionMapperImplementation;
 import com.tortu.demo.rest.AuthorizationV1RestService;
 import com.tortu.demo.rest.AuthorizationV2RestService;
 import lombok.extern.log4j.Log4j2;
+import net.bytebuddy.asm.Advice;
 import org.apache.cxf.Bus;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
@@ -44,6 +45,11 @@ public class JaxRsServerConfig {
     @Autowired
     private ExceptionMapperImplementation exceptionMapper;
 
+    @Autowired
+    private LoggingResponseFilter responseFilter;
+    @Autowired
+    private LoggingRequestFilter requestFilter;
+
     /**
      * Default Jackson ObjectMapper.
      *
@@ -62,6 +68,14 @@ public class JaxRsServerConfig {
     public JacksonJsonProvider jsonProvider() {
         return new JacksonJsonProvider(objectMapper());
     }
+    @Bean
+    public LoggingRequestFilter requestFilter(){
+        return new LoggingRequestFilter();
+    }
+    @Bean
+    public LoggingResponseFilter responseFilter(){
+        return new LoggingResponseFilter();
+    }
     /**
      * The Server bean which defines which controllers and providers are used by
      * this service.
@@ -79,7 +93,7 @@ public class JaxRsServerConfig {
                 authorizationV2RestService
             ));
         factory.setAddress(factory.getAddress());
-        factory.setProviders(Arrays.<Object> asList(jsonProvider(), exceptionMapper));
+        factory.setProviders(Arrays.<Object> asList(jsonProvider(), exceptionMapper, responseFilter, responseFilter));
         factory.setBus(bus);
         log.info("JaxRsServerConfig : jaxRsServer bean created");
         return factory.create();

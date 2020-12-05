@@ -20,7 +20,7 @@ public interface TokenService {
      * Validates if there is a token with the id sent and if the token is still valid
      * @param tokenId id of the token to verify
      */
-    void validateToken(String tokenId);
+    Token validateToken(String tokenId);
 
     /**
      * Updates the creationDate of the token to refresh its duration

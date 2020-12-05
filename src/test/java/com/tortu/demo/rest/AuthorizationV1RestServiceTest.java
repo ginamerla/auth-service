@@ -58,7 +58,12 @@ public class AuthorizationV1RestServiceTest {
 
     @Test
     public void verifyToken() {
-        Mockito.doNothing().when(tokenService).validateToken(TOKEN_ID_VALID);
+        Token token = Token.builder()
+                .creationDate(CREATION_DATE)
+                .durationMinutes(MINUTES_TEST)
+                .tokenId(TOKEN_ID_VALID).build();
+        Mockito.when(tokenService.validateToken(TOKEN_ID_VALID)).thenReturn(token);
+//        Mockito.doNothing().when(tokenService).validateToken(TOKEN_ID_VALID);
         Response response = authRestService.verifyToken(TOKEN_ID_VALID);
         Mockito.verify(tokenService,Mockito.times(1)).validateToken(TOKEN_ID_VALID);
         Assert.assertEquals(200, response.getStatus());
