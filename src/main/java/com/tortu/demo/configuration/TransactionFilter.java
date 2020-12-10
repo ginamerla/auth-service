@@ -16,7 +16,7 @@ public class TransactionFilter implements Filter {
 //        HttpServletRequest req = (HttpServletRequest) servletRequest;
 //        log.info("Starting a transaction for request {}",req.getRequestURI());
 //
-        filterChain.doFilter(servletRequest,servletResponse);
+//        filterChain.doFilter(servletRequest,servletResponse);
 //        log.info("Committing a transaction for request: {}", req.getRequestURI());
     }
 }

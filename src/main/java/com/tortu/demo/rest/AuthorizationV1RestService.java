@@ -4,13 +4,11 @@ import com.tortu.demo.exception.GeneralException;
 import com.tortu.demo.model.Token;
 import com.tortu.demo.rest.mapper.TokenResourceMapper;
 import com.tortu.demo.rest.resources.TokenResource;
-import com.tortu.demo.service.TokenService;
 import com.tortu.demo.service.implementation.TokenServiceMemoryBasedImplementation;
 import lombok.extern.log4j.Log4j2;
 import org.apache.cxf.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -44,12 +42,14 @@ public class AuthorizationV1RestService {
 
     @GET
     @Path("/verify/{tokenid}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response verifyToken(@PathParam("tokenid")String tokenId){
         if(StringUtils.isEmpty(tokenId)){
             throw new GeneralException("Token Id is null");
         }
-        tokenService.validateToken(tokenId);
-        return Response.ok().build();
+        Token token = tokenService.validateToken(tokenId);
+        TokenResource resource = mapper.map(token);
+        return Response.ok(resource).build();
     }
 
     @PUT

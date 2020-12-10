@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.ws.rs.NotAuthorizedException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.*;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 @Service
 @Log4j2
@@ -28,7 +29,7 @@ public class TokenServiceMemoryBasedImplementation implements TokenService {
         return token;
     }
 
-    public void validateToken(String tokenId){
+    public Token validateToken(String tokenId){
         if(StringUtils.isEmpty(tokenId)){
             log.error("token id is null/empty");
             throw new IllegalArgumentException("Token id not provided");
@@ -44,9 +45,12 @@ public class TokenServiceMemoryBasedImplementation implements TokenService {
             }
             log.info("Token is valid");
         }else {
-            log.error("token does not exist");
+            log.error("token: {} does not exist", tokenId);
             throw new NoSuchElementException("Token does not exist");
         }
+        Token token = getTokenbyId(tokenId);
+        return token;
+
     }
 
     public Token refreshToken(String tokenId){
@@ -90,6 +94,7 @@ public class TokenServiceMemoryBasedImplementation implements TokenService {
      * @return token map
      */
     public Map<String, Token> getAllTokens(){
+        log.info("Getting all tokens...");
         return  tokenMap;
     }
 
